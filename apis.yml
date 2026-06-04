@@ -1,0 +1,105 @@
+---
+aid: ens-lyon
+name: École Normale Supérieure de Lyon
+description: >-
+  École Normale Supérieure de Lyon (ENS de Lyon) is a French public research and
+  higher-education institution in Lyon, ranked #187 in the QS World University
+  Rankings 2025. Its primary public, machine-readable developer footprint is its
+  open-access institutional repository, HAL-ENS-LYON (ens-lyon.hal.science), which
+  is part of the national HAL (Hyper Articles en Ligne) open archive. That platform
+  exposes the publication metadata of ENS de Lyon through HAL's shared, well-documented
+  APIs — an OAI-PMH endpoint scoped to the ens-lyon collection plus HAL's Search,
+  Reference, and SWORD deposit APIs hosted at api.archives-ouvertes.fr. ENS de Lyon
+  does not publish its own dedicated, branded developer portal; the institutional
+  GitHub organization exists but currently has no public repositories.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/ens-lyon/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - France
+  - Open Access
+  - Research
+  - Institutional Repository
+  - OAI-PMH
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: ens-lyon:hal-oai-pmh
+    name: HAL-ENS-LYON OAI-PMH
+    description: >-
+      OAI-PMH 2.0 metadata harvesting endpoint scoped to the ENS de Lyon (ens-lyon)
+      collection of the national HAL open archive. Exposes the institution's
+      open-access scholarly publication metadata (articles, chapters, conference
+      papers, theses) under CC0 for harvesting. Active since 2002.
+    humanURL: https://api.archives-ouvertes.fr/docs/oai
+    baseURL: https://api.archives-ouvertes.fr/oai/ens-lyon
+    tags: [ OAI-PMH, Metadata, Open Access, Repository, Research ]
+    properties:
+      - type: Documentation
+        url: https://api.archives-ouvertes.fr/docs/oai
+  - aid: ens-lyon:hal-search
+    name: HAL Search API (ens-lyon collection)
+    description: >-
+      HAL's Solr-backed REST/Search API for querying publications. Can be scoped to
+      the ENS de Lyon collection (e.g. /search/ens-lyon/) to retrieve ENS de Lyon
+      research output as JSON/XML/BibTeX.
+    humanURL: https://api.archives-ouvertes.fr/docs/search
+    baseURL: https://api.archives-ouvertes.fr/search/ens-lyon/
+    tags: [ Search, REST, Open Access, Research, Publications ]
+    properties:
+      - type: Documentation
+        url: https://api.archives-ouvertes.fr/docs/search
+  - aid: ens-lyon:hal-ref
+    name: HAL Reference (Référentiels) API
+    description: >-
+      HAL's reference-data API for querying controlled vocabularies and authorities
+      (authors, structures/labs, journals, domains, ANR projects) used across HAL,
+      including ENS de Lyon's structures and authors.
+    humanURL: https://api.archives-ouvertes.fr/docs/ref
+    baseURL: https://api.archives-ouvertes.fr/ref/
+    tags: [ Reference, REST, Authorities, Research ]
+    properties:
+      - type: Documentation
+        url: https://api.archives-ouvertes.fr/docs/ref
+  - aid: ens-lyon:hal-sword
+    name: HAL SWORD Deposit API
+    description: >-
+      HAL's SWORD protocol API for programmatic deposit of documents into HAL,
+      including into the ENS de Lyon collection. Requires authenticated HAL
+      credentials.
+    humanURL: https://api.archives-ouvertes.fr/docs/sword
+    baseURL: https://api.archives-ouvertes.fr/sword/
+    tags: [ SWORD, Deposit, Open Access, Repository ]
+    properties:
+      - type: Documentation
+        url: https://api.archives-ouvertes.fr/docs/sword
+      - type: Authentication
+        url: https://api.archives-ouvertes.fr/docs/sword
+common:
+  - type: Website
+    url: https://www.ens-lyon.fr/
+  - type: DeveloperPortal
+    url: https://api.archives-ouvertes.fr/docs
+  - type: GitHub
+    url: https://github.com/ens-lyon
+  - type: LinkedIn
+    url: https://fr.linkedin.com/school/ens-lyon/
+  - type: Repository
+    url: https://ens-lyon.hal.science
+  - type: Plans
+    url: plans/ens-lyon-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/ens-lyon-rate-limits.yml
+  - type: FinOps
+    url: finops/ens-lyon-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,42 @@
+---
+name: École Normale Supérieure de Lyon
+description: École Normale Supérieure de Lyon public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/ens-lyon/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 2
+    summary: >-
+      ENS de Lyon has no dedicated, branded developer portal of its own. Its real,
+      verifiable machine-readable footprint is its open-access institutional
+      repository HAL-ENS-LYON, which rides on the national HAL platform's
+      well-documented APIs (OAI-PMH, Search, Reference, SWORD) hosted at
+      api.archives-ouvertes.fr. I verified the ens-lyon-scoped OAI-PMH Identify and
+      Search endpoints resolve live (HTTP 200), the HAL API docs hub resolves, and
+      the repository, official website, GitHub org, and LinkedIn school page all
+      exist. The official GitHub org (github.com/ens-lyon) loads but publishes zero
+      public repositories. No course/catalog/SIS, library Alma/Primo, or branded
+      institutional API was found publicly documented; none were fabricated.
+    endpoints:
+      - url: https://api.archives-ouvertes.fr/oai/ens-lyon?verb=Identify
+        status: 200
+        note: Live OAI-PMH 2.0 endpoint scoped to the ens-lyon collection; CC0 metadata, active since 2002.
+      - url: https://api.archives-ouvertes.fr/search/ens-lyon/?q=*&rows=1
+        status: 200
+        note: HAL Search API scoped to ENS de Lyon collection returns results.
+      - url: https://api.archives-ouvertes.fr/docs
+        status: 200
+        note: HAL API documentation hub (Search, Reference, SWORD, OAI-PMH).
+      - url: https://ens-lyon.hal.science
+        status: 200
+        note: HAL-ENS-LYON open-access institutional repository front end.
+      - url: https://www.ens-lyon.fr/
+        status: 200
+        note: Official institution website.
+      - url: https://github.com/ens-lyon
+        status: 200
+        note: Official-looking GitHub org; loads but has no public repositories or members.
+      - url: https://fr.linkedin.com/school/ens-lyon/
+        status: 999
+        note: Official LinkedIn school page; 999 is LinkedIn's standard anti-bot response, page exists in-browser.
