@@ -1,0 +1,87 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "hal": "https://api.archives-ouvertes.fr/vocab/",
+    "@vocab": "https://www.ens-lyon.fr/vocab/",
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "logo": "schema:logo",
+    "sameAs": "schema:sameAs",
+    "foundingLocation": "schema:foundingLocation",
+    "address": "schema:address",
+    "department": "schema:department",
+    "institution": {
+      "@id": "schema:CollegeOrUniversity",
+      "@type": "@id"
+    },
+    "repository": {
+      "@id": "schema:DataCatalog",
+      "@type": "@id"
+    },
+    "api": {
+      "@id": "schema:WebAPI",
+      "@type": "@id"
+    },
+    "documentation": {
+      "@id": "schema:documentation",
+      "@type": "@id"
+    },
+    "endpoint": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "publication": "schema:ScholarlyArticle",
+    "author": "schema:author",
+    "title": "schema:headline",
+    "journal": "schema:isPartOf",
+    "datePublished": "schema:datePublished",
+    "domain": "schema:about",
+    "identifier": "schema:identifier",
+    "structure": {
+      "@id": "schema:Organization",
+      "@type": "@id"
+    }
+  },
+  "@type": "schema:CollegeOrUniversity",
+  "name": "École Normale Supérieure de Lyon",
+  "url": "https://www.ens-lyon.fr/",
+  "description": "French public research and higher-education institution in Lyon. Its public machine-readable footprint is the HAL-ENS-LYON open-access institutional repository exposed via HAL's shared OAI-PMH, Search, Reference, and SWORD APIs.",
+  "sameAs": [
+    "https://ens-lyon.hal.science",
+    "https://github.com/ens-lyon",
+    "https://fr.linkedin.com/school/ens-lyon/"
+  ],
+  "repository": {
+    "@type": "schema:DataCatalog",
+    "name": "HAL-ENS-LYON",
+    "url": "https://ens-lyon.hal.science",
+    "description": "Open-access institutional repository of ENS de Lyon, part of the national HAL open archive."
+  },
+  "api": [
+    {
+      "@type": "schema:WebAPI",
+      "name": "HAL-ENS-LYON OAI-PMH",
+      "endpoint": "https://api.archives-ouvertes.fr/oai/ens-lyon",
+      "documentation": "https://api.archives-ouvertes.fr/docs/oai"
+    },
+    {
+      "@type": "schema:WebAPI",
+      "name": "HAL Search API (ens-lyon collection)",
+      "endpoint": "https://api.archives-ouvertes.fr/search/ens-lyon/",
+      "documentation": "https://api.archives-ouvertes.fr/docs/search"
+    },
+    {
+      "@type": "schema:WebAPI",
+      "name": "HAL Reference (Référentiels) API",
+      "endpoint": "https://api.archives-ouvertes.fr/ref/",
+      "documentation": "https://api.archives-ouvertes.fr/docs/ref"
+    },
+    {
+      "@type": "schema:WebAPI",
+      "name": "HAL SWORD Deposit API",
+      "endpoint": "https://api.archives-ouvertes.fr/sword/",
+      "documentation": "https://api.archives-ouvertes.fr/docs/sword"
+    }
+  ]
+}
