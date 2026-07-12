@@ -82,6 +82,8 @@ apis:
       - type: Authentication
         url: https://api.archives-ouvertes.fr/docs/sword
 common:
+  - type: DomainSecurity
+    url: security/ens-lyon-domain-security.yml
   - type: Website
     url: https://www.ens-lyon.fr/
   - type: DeveloperPortal
