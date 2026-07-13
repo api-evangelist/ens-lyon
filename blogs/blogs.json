@@ -4,11 +4,12 @@
     {
       "source": "https://www.ens-lyon.fr/actualites",
       "feed_url": "https://www.ens-lyon.fr/actualites",
-      "title": "ENS de Lyon - Actualités",
+      "title": "ENS de Lyon - Actualit\u00e9s",
       "saved": 0,
-      "method": "none"
+      "method": "none",
+      "error": "parse_failed"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-03T00:00:00Z"
+  "fetched": "2026-07-11T11:43:46Z"
 }
