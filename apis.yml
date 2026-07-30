@@ -13,9 +13,21 @@ description: >-
   does not publish its own dedicated, branded developer portal; the institutional
   GitHub organization exists but currently has no public repositories.
 type: Index
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ens-lyon.png
 url: https://raw.githubusercontent.com/api-evangelist/ens-lyon/refs/heads/main/apis.yml
 tags:
   - Education
