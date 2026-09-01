@@ -1,17 +1,28 @@
 ---
 aid: ens-lyon
 name: École Normale Supérieure de Lyon
+x-type: university
+x-category: Public Research University
 description: >-
-  École Normale Supérieure de Lyon (ENS de Lyon) is a French public research and
-  higher-education institution in Lyon, ranked #187 in the QS World University
-  Rankings 2025. Its primary public, machine-readable developer footprint is its
-  open-access institutional repository, HAL-ENS-LYON (ens-lyon.hal.science), which
-  is part of the national HAL (Hyper Articles en Ligne) open archive. That platform
-  exposes the publication metadata of ENS de Lyon through HAL's shared, well-documented
-  APIs — an OAI-PMH endpoint scoped to the ens-lyon collection plus HAL's Search,
-  Reference, and SWORD deposit APIs hosted at api.archives-ouvertes.fr. ENS de Lyon
-  does not publish its own dedicated, branded developer portal; the institutional
-  GitHub organization exists but currently has no public repositories.
+  École Normale Supérieure de Lyon (ENS de Lyon) is a French public grande école and
+  research university, one of the four Écoles normales supérieures, ranked #187 in the
+  QS World University Rankings 2025. It operates no public developer portal, publishes
+  no OpenAPI, issues no API keys and runs no documented open-API programme — api.ens-lyon.fr,
+  data.ens-lyon.fr and developer.ens-lyon.fr do not resolve — and this profile says so
+  rather than padding the gap. What ENS de Lyon does operate, and what is recorded here,
+  is standards-based identity and scholarly infrastructure. It self-hosts a Shibboleth
+  Identity Provider on its own domain (idp.ens-lyon.fr, scope ens-lyon.fr, on the school's
+  own 140.77.0.0/16 allocation), registered by RENATER in the Fédération Éducation-Recherche,
+  carrying the REFEDS Research & Scholarship entity category and exported to eduGAIN; it
+  runs an Apereo CAS single sign-on service at cas.ens-lyon.fr that answers the CAS 3.0
+  protocol; and it holds a Microsoft Entra ID tenant with live OIDC discovery. Its research
+  output is machine-readable only as the ens-lyon collection on HAL, the national open
+  archive operated by CCSD/CNRS — 106,836 records, harvestable over OAI-PMH and Solr search
+  at api.archives-ouvertes.fr. That data is ENS de Lyon's; the platform, the contract and the
+  admin contact (contact@archives-ouvertes.fr) are HAL's, so those surfaces are recorded as
+  tenancies and HAL's generic reference and SWORD APIs are deliberately not claimed here.
+  The school is registered in ROR and in the Crossref Funder Registry; it holds no DataCite
+  membership and no Crossref depositor membership of its own.
 type: Index
 deliveryModel:
   model: saas
@@ -41,82 +52,252 @@ access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ens-lyon.png
 url: https://raw.githubusercontent.com/api-evangelist/ens-lyon/refs/heads/main/apis.yml
 tags:
-  - Education
-  - Higher Education
   - University
+  - Higher Education
+  - Education
   - France
+  - Grande École
+  - Identity Federation
+  - Shibboleth
+  - SAML
+  - Research Repository
   - Open Access
-  - Research
-  - Institutional Repository
   - OAI-PMH
+  - Research Computing
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-09-01'
 specificationVersion: '0.23'
+x-coverage:
+  state: gated
+  reason: no_public_api
+  detail: >-
+    ENS de Lyon publishes no institution-operated public API and no developer portal. A DNS
+    sweep of the obvious candidates under ens-lyon.fr (api, apis, data, opendata, developer,
+    courses, cours, sis, webservices, graphql, hpc, mesocentre, moodle, bibliotheque,
+    catalogue) resolved only ldap, intranet, cas and idp — three of which are internal or
+    authentication-only. www.ens-lyon.fr returns 404 for llms.txt, sitemap.xml,
+    .well-known/security.txt and .well-known/openid-configuration, and serves a 77KB soft-404
+    body, so status codes were read rather than page presence. Everything reachable WAS read:
+    the Shibboleth IdP metadata (application/xml, 12,129 bytes), the RENATER Fédération
+    Éducation-Recherche MDQ entity for that entityID in both the fer and edugain namespaces,
+    the RENATER IdP aggregate (344 entities, ENS de Lyon present), the Entra ID OIDC discovery
+    document and its SAML federation metadata, the CAS 3.0 serviceValidate response, the HAL
+    OAI-PMH Identify response for the ens-lyon set, the HAL Solr search endpoint scoped to the
+    ens-lyon collection (106,836 records), and the ROR and Crossref Funder Registry records.
+    Two surfaces are live but not machine-callable: the HAL institutional portal
+    ens-lyon.hal.science and books.openedition.org both return a 200 carrying an Anubis
+    bot-mitigation challenge rather than content. The github.com/ENS-Lyon organisation that
+    the June 2026 profile pointed at has zero public repositories, no name, no URL and no
+    verified domain, so it cannot be attributed to the institution and the pointer has been
+    removed. No public AI policy or AI-tooling statement was found on the French or English
+    surface. The profile is thin because the institution is thin, not because we could not read it.
+  generated: '2026-09-01'
+  method: probed
+  evidence:
+    - url: https://idp.ens-lyon.fr/idp/shibboleth
+      status: 200
+    - url: https://mdq.federation.renater.fr/fer/entities/https%3A%2F%2Fidp.ens-lyon.fr%2Fidp%2Fshibboleth
+      status: 200
+    - url: https://mdq.federation.renater.fr/edugain/entities/https%3A%2F%2Fidp.ens-lyon.fr%2Fidp%2Fshibboleth
+      status: 200
+    - url: https://metadata.federation.renater.fr/renater/main/main-idps-renater-metadata.xml
+      status: 200
+    - url: https://login.microsoftonline.com/ens-lyon.fr/v2.0/.well-known/openid-configuration
+      status: 200
+    - url: https://cas.ens-lyon.fr/cas/p3/serviceValidate
+      status: 200
+    - url: https://api.archives-ouvertes.fr/oai/ens-lyon?verb=Identify
+      status: 200
+    - url: https://api.archives-ouvertes.fr/search/ens-lyon/?q=*:*&rows=0&wt=json
+      status: 200
+    - url: https://ens-lyon.hal.science/
+      status: 200
+    - url: https://api.ror.org/v2/organizations/04zmssz18
+      status: 200
+    - url: https://api.crossref.org/funders/501100018692
+      status: 200
+    - url: https://api.datacite.org/clients?query=ens-lyon
+      status: 200
+    - url: https://www.ens-lyon.fr/llms.txt
+      status: 404
+    - url: https://www.ens-lyon.fr/.well-known/security.txt
+      status: 404
+    - url: https://api.ens-lyon.fr/
+      status: 0
+    - url: https://data.ens-lyon.fr/
+      status: 0
 apis:
-  - aid: ens-lyon:hal-oai-pmh
-    name: HAL-ENS-LYON OAI-PMH
+  - aid: ens-lyon:shibboleth-idp
+    name: ENS de Lyon Shibboleth Identity Provider (SAML 2.0 metadata)
+    x-operator: institution
     description: >-
-      OAI-PMH 2.0 metadata harvesting endpoint scoped to the ENS de Lyon (ens-lyon)
-      collection of the national HAL open archive. Exposes the institution's
-      open-access scholarly publication metadata (articles, chapters, conference
-      papers, theses) under CC0 for harvesting. Active since 2002.
+      ENS de Lyon self-hosts its Shibboleth Identity Provider on its own registrable domain.
+      The entityID is https://idp.ens-lyon.fr/idp/shibboleth, the asserted scope is
+      ens-lyon.fr, the technical contact is admin-system@ens-lyon.fr and the host resolves
+      through lxc-idp.ens-lyon.fr to 140.77.167.96, inside the school's own allocation. The
+      metadata document is served unauthenticated as application/xml and supports Shibboleth
+      1.0, SAML 1.1 and SAML 2.0 (HTTP-POST and HTTP-Redirect SSO bindings). This is the
+      strongest institution-operated machine-readable surface in this repository. Note that
+      the self-served copy is the Shibboleth stock template — the authoritative, signed
+      metadata is the RENATER federation copy recorded separately below.
+    humanURL: https://services.renater.fr/federation/
+    baseURL: https://idp.ens-lyon.fr/idp/shibboleth
+    tags: [ Identity, SAML, Shibboleth, Single Sign-On, Federation ]
+    properties:
+      - type: Website
+        url: https://idp.ens-lyon.fr/idp/shibboleth
+      - type: Authentication
+        url: authentication/ens-lyon-authentication.yml
+      - type: Conformance
+        url: conformance/ens-lyon-domain-standards.yml
+  - aid: ens-lyon:renater-fer-entity
+    name: RENATER Fédération Éducation-Recherche entity (ENS de Lyon IdP)
+    x-operator: federation
+    description: >-
+      ENS de Lyon's Identity Provider as registered by RENATER, France's national research and
+      education network, in the Fédération Éducation-Recherche and exported to eduGAIN. The
+      per-entity MDQ endpoint returns the signed EntityDescriptor (registrationAuthority
+      https://federation.renater.fr/, OrganizationName "Ecole Normale Supérieure de Lyon",
+      mdui:DisplayName "ENS de Lyon" in fr and en, REFEDS Research & Scholarship entity
+      category). The MDQ service requires an Accept header of application/samlmetadata+xml.
+      The federation is shared by definition; the IdP behind this entry is ENS de Lyon's own.
+    humanURL: https://services.renater.fr/federation/
+    baseURL: https://mdq.federation.renater.fr/fer/entities/https%3A%2F%2Fidp.ens-lyon.fr%2Fidp%2Fshibboleth
+    tags: [ Identity Federation, SAML, eduGAIN, RENATER, Metadata ]
+    properties:
+      - type: Documentation
+        url: https://services.renater.fr/federation/
+      - type: Authentication
+        url: authentication/ens-lyon-authentication.yml
+      - type: Conformance
+        url: conformance/ens-lyon-domain-standards.yml
+  - aid: ens-lyon:entra-id-tenant
+    name: ENS de Lyon Microsoft Entra ID tenant (OIDC + SAML metadata)
+    x-operator: federation
+    description: >-
+      The Entra ID tenant behind ens-lyon.fr accounts, resolved from the domain hint:
+      c30cf67d-aee4-44f6-8f1b-12f4935b7d2c, region scope EU. OIDC discovery and SAML
+      federation metadata both answer unauthenticated. login.microsoftonline.com is
+      Microsoft's host and Microsoft's contract; the tenant is ENS de Lyon's, which is why
+      this is recorded as federation rather than institution. There is no public client
+      registration.
+    humanURL: https://login.microsoftonline.com/ens-lyon.fr/v2.0/.well-known/openid-configuration
+    baseURL: https://login.microsoftonline.com/ens-lyon.fr/v2.0/.well-known/openid-configuration
+    tags: [ Identity, OpenID Connect, SAML, Entra ID, Single Sign-On ]
+    properties:
+      - type: OpenIDConnectDiscovery
+        url: https://login.microsoftonline.com/ens-lyon.fr/v2.0/.well-known/openid-configuration
+      - type: Authentication
+        url: authentication/ens-lyon-authentication.yml
+  - aid: ens-lyon:cas-sso
+    name: ENS de Lyon CAS single sign-on (Apereo CAS 3.0 protocol)
+    x-operator: institution
+    description: >-
+      Apereo CAS service running on ENS de Lyon's own host cas.ens-lyon.fr (140.77.51.3). The
+      CAS 3.0 validation endpoint /cas/p3/serviceValidate answers unauthenticated with a
+      well-formed cas:serviceResponse document, so the protocol surface is real and probeable
+      even though every ticket-granting operation requires an ENS de Lyon account. There is no
+      third-party client registration and no published integration guide.
+    humanURL: https://cas.ens-lyon.fr/cas/login
+    baseURL: https://cas.ens-lyon.fr/cas/
+    tags: [ Identity, Single Sign-On, CAS, Authentication ]
+    properties:
+      - type: Authentication
+        url: authentication/ens-lyon-authentication.yml
+  - aid: ens-lyon:hal-oai-pmh
+    name: HAL OAI-PMH — ens-lyon collection
+    x-operator: tenant
+    description: >-
+      OAI-PMH 2.0 harvesting endpoint scoped to ENS de Lyon's named collection on HAL, the
+      French national open archive operated by CCSD (CNRS). The Identify response names the
+      repository as HAL, the repositoryIdentifier as hal.archives-ouvertes.fr and the
+      adminEmail as contact@archives-ouvertes.fr, with an earliestDatestamp of 2002-09-23 and
+      metadata licensed CC0. The publication metadata inside the scope is ENS de Lyon's; the
+      platform and the contract are HAL's, so the vendor's specification is deliberately not
+      saved under this institution.
     humanURL: https://api.archives-ouvertes.fr/docs/oai
     baseURL: https://api.archives-ouvertes.fr/oai/ens-lyon
-    tags: [ OAI-PMH, Metadata, Open Access, Repository, Research ]
+    tags: [ OAI-PMH, Metadata, Open Access, Research Repository, Harvesting ]
     properties:
       - type: Documentation
         url: https://api.archives-ouvertes.fr/docs/oai
+      - type: Website
+        url: https://ens-lyon.hal.science
+      - type: Conformance
+        url: conformance/ens-lyon-domain-standards.yml
   - aid: ens-lyon:hal-search
-    name: HAL Search API (ens-lyon collection)
+    name: HAL Search API — ens-lyon collection
+    x-operator: tenant
     description: >-
-      HAL's Solr-backed REST/Search API for querying publications. Can be scoped to
-      the ENS de Lyon collection (e.g. /search/ens-lyon/) to retrieve ENS de Lyon
-      research output as JSON/XML/BibTeX.
+      HAL's Solr-backed search API scoped to the ENS de Lyon collection. A probe of
+      /search/ens-lyon/?q=*:*&wt=json returned numFound 106,836 on 2026-09-01, which is the
+      size of ENS de Lyon's deposited scholarly record. Again the scope is the institution's
+      and the engine is HAL's; recorded as a tenancy rather than as ENS de Lyon's own contract.
     humanURL: https://api.archives-ouvertes.fr/docs/search
     baseURL: https://api.archives-ouvertes.fr/search/ens-lyon/
     tags: [ Search, REST, Open Access, Research, Publications ]
     properties:
       - type: Documentation
         url: https://api.archives-ouvertes.fr/docs/search
-  - aid: ens-lyon:hal-ref
-    name: HAL Reference (Référentiels) API
+      - type: Website
+        url: https://ens-lyon.hal.science
+  - aid: ens-lyon:ror-record
+    name: ROR registry record (04zmssz18)
+    x-operator: registry
     description: >-
-      HAL's reference-data API for querying controlled vocabularies and authorities
-      (authors, structures/labs, journals, domains, ANR projects) used across HAL,
-      including ENS de Lyon's structures and authors.
-    humanURL: https://api.archives-ouvertes.fr/docs/ref
-    baseURL: https://api.archives-ouvertes.fr/ref/
-    tags: [ Reference, REST, Authorities, Research ]
+      ENS de Lyon's record in the Research Organization Registry, https://ror.org/04zmssz18,
+      typed education and funder, carrying ISNI 0000 0001 2175 9188, GRID grid.15140.31,
+      Wikidata Q10159 and Crossref Funder ID 501100018692. ROR is a registry ENS de Lyon is
+      registered IN, which is a fact about the institution; the registry's own API contract
+      belongs to ROR.
+    humanURL: https://ror.org/04zmssz18
+    baseURL: https://api.ror.org/v2/organizations/04zmssz18
+    tags: [ Registry, Identifiers, ROR, Research ]
     properties:
-      - type: Documentation
-        url: https://api.archives-ouvertes.fr/docs/ref
-  - aid: ens-lyon:hal-sword
-    name: HAL SWORD Deposit API
+      - type: Website
+        url: https://ror.org/04zmssz18
+      - type: Conformance
+        url: conformance/ens-lyon-domain-standards.yml
+  - aid: ens-lyon:crossref-funder
+    name: Crossref Funder Registry entry (501100018692)
+    x-operator: registry
     description: >-
-      HAL's SWORD protocol API for programmatic deposit of documents into HAL,
-      including into the ENS de Lyon collection. Requires authenticated HAL
-      credentials.
-    humanURL: https://api.archives-ouvertes.fr/docs/sword
-    baseURL: https://api.archives-ouvertes.fr/sword/
-    tags: [ SWORD, Deposit, Open Access, Repository ]
+      ENS de Lyon is registered in the Crossref Open Funder Registry as
+      https://doi.org/10.13039/501100018692, name "École Normale Supérieure de Lyon",
+      location France. This is a funder registration, not a Crossref depositor membership — a
+      members query for the institution returns zero results, and a DataCite clients query
+      returns zero, so neither is claimed here.
+    humanURL: https://doi.org/10.13039/501100018692
+    baseURL: https://api.crossref.org/funders/501100018692
+    tags: [ Registry, Identifiers, Crossref, Funding, Research ]
     properties:
-      - type: Documentation
-        url: https://api.archives-ouvertes.fr/docs/sword
-      - type: Authentication
-        url: https://api.archives-ouvertes.fr/docs/sword
+      - type: Website
+        url: https://doi.org/10.13039/501100018692
+      - type: Conformance
+        url: conformance/ens-lyon-domain-standards.yml
 common:
-  - type: DomainSecurity
-    url: security/ens-lyon-domain-security.yml
   - type: Website
     url: https://www.ens-lyon.fr/
-  - type: DeveloperPortal
-    url: https://api.archives-ouvertes.fr/docs
-  - type: GitHub
-    url: https://github.com/ens-lyon
+  - type: TermsOfService
+    url: https://www.ens-lyon.fr/acces/mentions-legales
+  - type: Support
+    url: https://www.ens-lyon.fr/contact
   - type: LinkedIn
     url: https://fr.linkedin.com/school/ens-lyon/
-  - type: Repository
+  - type: IdentityFederation
+    url: https://services.renater.fr/federation/
+  - type: ResearchRepository
     url: https://ens-lyon.hal.science
+  - type: ResearchComputing
+    url: https://www.ens-lyon.fr/PSMN/
+  - type: Authentication
+    url: authentication/ens-lyon-authentication.yml
+  - type: Conformance
+    url: conformance/ens-lyon-domain-standards.yml
+  - type: DomainSecurity
+    url: security/ens-lyon-domain-security.yml
+  - type: JSONLD
+    url: json-ld/ens-lyon-context.jsonld
   - type: Plans
     url: plans/ens-lyon-plans-pricing.yml
   - type: RateLimits
