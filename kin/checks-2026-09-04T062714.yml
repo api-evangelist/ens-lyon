@@ -1,17 +1,17 @@
 ---
 kin_checks:
   slug: ens-lyon
-  schema_version: 0.17.2
-  scored_at: '2026-09-01'
-  run_ts: 2026-09-01T063623
+  schema_version: 0.18.2
+  scored_at: '2026-09-04'
+  run_ts: 2026-09-04T062714
   note: Actionable checks only (missed + partial). earned/na are every other check
-    in rubric/scoring-0.17.2.yml; counts below let you verify that.
+    in rubric/scoring-0.18.2.yml; counts below let you verify that.
   counts:
-    total: 130
-    earned: 20
-    partial: 2
-    missed: 67
-    na: 41
+    total: 132
+    earned: 22
+    partial: 3
+    missed: 65
+    na: 42
   checks:
   - id: well_known_published
     status: missed
@@ -61,13 +61,14 @@ kin_checks:
     status: missed
   - id: webhooks_advertised
     status: missed
+  - id: github_org_present
+    status: missed
   - id: roadmap_present
     status: missed
   - id: examples_published
     status: missed
   - id: portal_present
     status: missed
-    detail: pointer liveness 0.0
   - id: api_reference_present
     status: missed
   - id: getting_started_present
@@ -84,8 +85,6 @@ kin_checks:
     status: missed
   - id: agent_skill_present
     status: missed
-  - id: support_channel
-    status: missed
   - id: blog_present
     status: missed
   - id: plans_multiple
@@ -93,8 +92,6 @@ kin_checks:
   - id: pricing_link
     status: missed
   - id: sign_up_present
-    status: missed
-  - id: terms_of_service
     status: missed
   - id: privacy_policy
     status: missed
@@ -105,8 +102,6 @@ kin_checks:
   - id: reg_oauth_scopes
     status: missed
   - id: reg_vulnerability_disclosure
-    status: missed
-  - id: reg_terms_of_service
     status: missed
   - id: reg_privacy_policy
     status: missed
@@ -148,6 +143,9 @@ kin_checks:
     status: missed
   - id: agentic_commerce
     status: missed
+  - id: contract_self_operated
+    status: partial
+    earned: 3.6
   - id: auth_clarity
     status: partial
     earned: 3.5
