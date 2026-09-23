@@ -1,0 +1,144 @@
+---
+# How access to École Normale Supérieure de Lyon's programmable surfaces is actually established.
+# NOT an OAuth developer program: ENS de Lyon publishes no API keys and no client registration.
+name: École Normale Supérieure de Lyon — authentication and federated identity
+slug: ens-lyon
+generated: '2026-09-01'
+method: probed
+source: https://idp.ens-lyon.fr/idp/shibboleth
+summary: >-
+  ENS de Lyon has no public developer authentication surface — no API key issuance, no OAuth
+  client registration, no documented token endpoint for third parties, no developer portal.
+  What it does operate is institutional federated identity for its own members, in three
+  stacks, all of which answer unauthenticated metadata or protocol requests even though every
+  useful operation behind them requires an ENS de Lyon account.
+mechanisms:
+  - id: shibboleth-idp
+    type: saml2-idp
+    operator: institution
+    entity_id: https://idp.ens-lyon.fr/idp/shibboleth
+    metadata_url: https://idp.ens-lyon.fr/idp/shibboleth
+    authoritative_metadata_url: https://mdq.federation.renater.fr/fer/entities/https%3A%2F%2Fidp.ens-lyon.fr%2Fidp%2Fshibboleth
+    scopes_asserted:
+      - ens-lyon.fr
+    protocols:
+      - urn:mace:shibboleth:1.0
+      - urn:oasis:names:tc:SAML:1.1:protocol
+      - urn:oasis:names:tc:SAML:2.0:protocol
+    sso_endpoints:
+      - binding: urn:mace:shibboleth:1.0:profiles:AuthnRequest
+        location: https://idp.ens-lyon.fr/idp/profile/Shibboleth/SSO
+      - binding: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST
+        location: https://idp.ens-lyon.fr/idp/profile/SAML2/POST/SSO
+      - binding: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect
+        location: https://idp.ens-lyon.fr/idp/profile/SAML2/Redirect/SSO
+    federation: Fédération Éducation-Recherche (RENATER), exported to eduGAIN
+    registration_authority: https://federation.renater.fr/
+    entity_categories:
+      - http://refeds.org/category/research-and-scholarship
+    technical_contact: admin-system@ens-lyon.fr
+    host_resolution: idp.ens-lyon.fr -> lxc-idp.ens-lyon.fr -> 140.77.167.96 (ENS de Lyon allocation)
+    audience: ENS de Lyon staff, students and federated service providers
+    public_client_registration: false
+    probed:
+      status: 200
+      content_type: application/xml;charset=UTF-8
+      bytes: 12129
+      date: '2026-09-01'
+    note: >-
+      The copy served from idp.ens-lyon.fr is the Shibboleth stock template — it still carries
+      the "This is example metadata only" comment and the commented-out mdui block. It is
+      nonetheless a valid EntityDescriptor with the real entityID, the real ens-lyon.fr scope
+      and the real signing key. The signed, curated metadata is RENATER's, recorded below.
+    method: probed
+    source: https://idp.ens-lyon.fr/idp/shibboleth
+  - id: renater-fer-entity
+    type: federation-metadata
+    operator: federation
+    mdq_base: https://mdq.federation.renater.fr/
+    namespaces_present:
+      - fer
+      - edugain
+      - fer+edugain
+    entity_id: https://idp.ens-lyon.fr/idp/shibboleth
+    required_accept_header: application/samlmetadata+xml
+    aggregate_url: https://metadata.federation.renater.fr/renater/main/main-idps-renater-metadata.xml
+    organization_name: Ecole Normale Supérieure de Lyon
+    display_name:
+      fr: ENS de Lyon
+      en: ENS de Lyon
+    probed:
+      status: 200
+      bytes_fer: 9123
+      bytes_edugain: 9541
+      aggregate_entities: 344
+      aggregate_contains_ens_lyon: true
+      date: '2026-09-01'
+    note: >-
+      A federation is shared by definition; recording it is not a misattribution. The IdP the
+      metadata describes is ENS de Lyon's own, and RENATER is the registration authority.
+    method: probed
+    source: https://mdq.federation.renater.fr/fer/entities/https%3A%2F%2Fidp.ens-lyon.fr%2Fidp%2Fshibboleth
+  - id: entra-id-tenant
+    type: oidc-and-saml2
+    operator: federation
+    tenant_id: c30cf67d-aee4-44f6-8f1b-12f4935b7d2c
+    tenant_region_scope: EU
+    issuer: https://login.microsoftonline.com/c30cf67d-aee4-44f6-8f1b-12f4935b7d2c/v2.0
+    discovery_url: https://login.microsoftonline.com/ens-lyon.fr/v2.0/.well-known/openid-configuration
+    authorization_endpoint: https://login.microsoftonline.com/c30cf67d-aee4-44f6-8f1b-12f4935b7d2c/oauth2/v2.0/authorize
+    token_endpoint: https://login.microsoftonline.com/c30cf67d-aee4-44f6-8f1b-12f4935b7d2c/oauth2/v2.0/token
+    jwks_uri: https://login.microsoftonline.com/c30cf67d-aee4-44f6-8f1b-12f4935b7d2c/discovery/v2.0/keys
+    saml_metadata_url: https://login.microsoftonline.com/c30cf67d-aee4-44f6-8f1b-12f4935b7d2c/federationmetadata/2007-06/federationmetadata.xml
+    audience: ENS de Lyon accounts on Microsoft 365 and SAML-integrated internal systems
+    public_client_registration: false
+    probed:
+      oidc_status: 200
+      oidc_bytes: 1964
+      saml_status: 200
+      saml_bytes: 28441
+      date: '2026-09-01'
+    note: >-
+      login.microsoftonline.com is Microsoft's host and Microsoft's contract. The TENANT is
+      ENS de Lyon's, resolved from the ens-lyon.fr domain hint, which is why this is recorded
+      as federation and no Microsoft specification is saved under this institution.
+    method: probed
+    source: https://login.microsoftonline.com/ens-lyon.fr/v2.0/.well-known/openid-configuration
+  - id: cas-sso
+    type: cas3
+    operator: institution
+    base_url: https://cas.ens-lyon.fr/cas/
+    login_endpoint: https://cas.ens-lyon.fr/cas/login
+    validate_endpoint: https://cas.ens-lyon.fr/cas/p3/serviceValidate
+    host_resolution: cas.ens-lyon.fr -> 140.77.51.3 (ENS de Lyon allocation)
+    audience: ENS de Lyon accounts on internally integrated web services
+    public_client_registration: false
+    probed:
+      status: 200
+      bytes: 167
+      response: >-
+        <cas:serviceResponse xmlns:cas='http://www.yale.edu/tp/cas'><cas:authenticationFailure
+        code="INVALID_REQUEST"/></cas:serviceResponse>
+      date: '2026-09-01'
+    note: >-
+      Apereo CAS on ENS de Lyon's own host. The protocol surface is real and probeable; there
+      is no third-party client registration and no published integration guide, so it is
+      institutional plumbing rather than a developer program.
+    method: probed
+    source: https://cas.ens-lyon.fr/cas/p3/serviceValidate
+tenant_access:
+  - id: hal-deposit
+    platform: HAL (CCSD / CNRS)
+    operator: tenant
+    note: >-
+      Depositing into the ens-lyon collection uses HAL's own credentials and HAL's SWORD
+      endpoint at api.archives-ouvertes.fr/sword/. That endpoint is generic — it carries no
+      ENS de Lyon scope — so it is HAL's contract, not ENS de Lyon's, and it is not recorded
+      as one of this institution's APIs. Read access to the ens-lyon scope is unauthenticated.
+    method: probed
+    source: https://api.archives-ouvertes.fr/docs/sword
+absent:
+  - api_keys: not issued
+  - oauth_client_registration: none published
+  - developer_portal: none; api.ens-lyon.fr and developer.ens-lyon.fr do not resolve
+  - scim_provisioning: not publicly exposed

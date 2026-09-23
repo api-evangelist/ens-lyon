@@ -1,0 +1,117 @@
+---
+# Education-regime domain-standard conformance for École Normale Supérieure de Lyon.
+# Kin Score 0.12.0 `domain_standard_conformance` reads this from CONTRACT/endpoint evidence,
+# never from a prose claim. REWARD-ONLY: only standards with a probed, dated location are listed.
+name: École Normale Supérieure de Lyon — education domain standard conformance
+slug: ens-lyon
+regime: education
+generated: '2026-09-01'
+method: probed
+source: https://www.ens-lyon.fr/
+notes: >-
+  Every entry below was reached with a live HTTP probe on 2026-09-01 using a browser
+  User-Agent. Standards named in the education regime but NOT evidenced here — scim, lti,
+  oneroster, ed-fi, caliper, qti, orcid, datacite — are deliberately absent. ENS de Lyon runs
+  teaching and student-record systems, but none exposes a publicly probeable conformance
+  surface; a DataCite clients query for ens-lyon returned zero and a Crossref members query
+  returned zero, so no DOI-registrant conformance is claimed. Inventing any of these would
+  credit the institution for an integration nobody outside it can call.
+standards:
+  - standard: shibboleth
+    conformant: true
+    operator: institution
+    evidence:
+      url: https://idp.ens-lyon.fr/idp/shibboleth
+      status: 200
+      content_type: application/xml;charset=UTF-8
+      location: >-
+        Root <EntityDescriptor entityID="https://idp.ens-lyon.fr/idp/shibboleth"> carries an
+        <IDPSSODescriptor> and a <shibmd:Scope regexp="false">ens-lyon.fr</shibmd:Scope>
+        extension in the urn:mace:shibboleth:metadata:1.0 namespace.
+    detail: >-
+      ENS de Lyon self-hosts its Shibboleth Identity Provider on its own registrable domain —
+      idp.ens-lyon.fr resolves through lxc-idp.ens-lyon.fr to 140.77.167.96, inside ENS de
+      Lyon's own 140.77.0.0/16 allocation — and the technical contact in the federation copy
+      is admin-system@ens-lyon.fr. The metadata document is ENS de Lyon's own artifact, served
+      unauthenticated, and is the strongest institution-operated machine-readable surface in
+      this repository.
+  - standard: saml
+    conformant: true
+    operator: institution
+    evidence:
+      url: https://mdq.federation.renater.fr/fer/entities/https%3A%2F%2Fidp.ens-lyon.fr%2Fidp%2Fshibboleth
+      status: 200
+      content_type: application/samlmetadata+xml
+      location: >-
+        md:EntityDescriptor in urn:oasis:names:tc:SAML:2.0:metadata with
+        protocolSupportEnumeration="urn:mace:shibboleth:1.0
+        urn:oasis:names:tc:SAML:1.1:protocol urn:oasis:names:tc:SAML:2.0:protocol", SSO
+        bindings urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST and HTTP-Redirect,
+        mdrpi:RegistrationInfo registrationAuthority="https://federation.renater.fr/", and the
+        REFEDS Research & Scholarship entity category.
+    detail: >-
+      The signed SAML 2.0 metadata for ENS de Lyon's IdP is published by RENATER in the
+      Fédération Éducation-Recherche and exported to eduGAIN; the per-entity MDQ endpoint
+      answers in both the fer (9,123 bytes) and edugain (9,541 bytes) namespaces with an
+      Accept header of application/samlmetadata+xml, and the entityID is present in RENATER's
+      344-entity IdP aggregate. SAML 2.0 metadata is also published for ENS de Lyon's Microsoft
+      Entra ID tenant (c30cf67d-aee4-44f6-8f1b-12f4935b7d2c, resolved from the ens-lyon.fr
+      domain hint) at
+      https://login.microsoftonline.com/c30cf67d-aee4-44f6-8f1b-12f4935b7d2c/federationmetadata/2007-06/federationmetadata.xml
+      — probed 200, 28,441 bytes, text/xml. That host is Microsoft's; the tenant is ENS de Lyon's.
+  - standard: oai-pmh
+    conformant: true
+    operator: tenant
+    evidence:
+      url: https://api.archives-ouvertes.fr/oai/ens-lyon?verb=Identify
+      status: 200
+      content_type: text/xml
+      location: >-
+        <OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"><Identify><protocolVersion>2.0
+        </protocolVersion><baseURL>http://api.archives-ouvertes.fr/oai/ens-lyon</baseURL>
+        <earliestDatestamp>2002-09-23</earliestDatestamp><granularity>YYYY-MM-DD</granularity>
+        with an oai-identifier description block and a CC0 metadataPolicy.
+    detail: >-
+      OAI-PMH 2.0 conformance is real for ENS de Lyon's scholarly record but it is a TENANCY,
+      not the institution's engineering. The Identify response names the repository as HAL,
+      the repositoryIdentifier as hal.archives-ouvertes.fr and the adminEmail as
+      contact@archives-ouvertes.fr — the endpoint is operated by CCSD/CNRS and ENS de Lyon
+      holds a named collection on it. Scored here as tenant so the credit for the contract
+      lands on HAL rather than on the institution.
+  - standard: crossref
+    conformant: partial
+    operator: registry
+    evidence:
+      url: https://api.crossref.org/funders/501100018692
+      status: 200
+      content_type: application/json
+      location: >-
+        message.id "501100018692", message.name "École Normale Supérieure de Lyon",
+        message.location "France", message.uri
+        "https://doi.org/10.13039/501100018692"; cross-referenced from the ROR record's
+        external_ids.fundref.all.
+    detail: >-
+      ENS de Lyon is registered in the Crossref Open Funder Registry. This is a funder
+      registration only — a Crossref members query for the institution returns zero results,
+      so it is NOT a depositor membership and is marked partial rather than conformant. Never
+      save Crossref's own contract under this institution.
+absent:
+  - standard: datacite
+    reason: >-
+      api.datacite.org/clients?query=ens-lyon returns 0 clients and
+      api.datacite.org/providers?query=ens+lyon returns 0 providers on 2026-09-01. ENS de Lyon
+      holds no DataCite membership of its own; DOIs on its HAL deposits are minted by CCSD.
+  - standard: orcid
+    reason: No ORCID member or integration record found on any ENS de Lyon surface.
+  - standard: scim
+    reason: No publicly probeable SCIM endpoint; provisioning is internal to the Entra ID tenant.
+  - standard: lti
+    reason: No publicly probeable LTI tool or platform registration surface.
+  - standard: oneroster
+    reason: Not applicable to a French grande école; no endpoint found.
+  - standard: ed-fi
+    reason: Not applicable outside the US K-12/state-agency context; no endpoint found.
+  - standard: caliper
+    reason: No learning-analytics endpoint published.
+  - standard: qti
+    reason: No assessment-interoperability surface published.

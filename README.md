@@ -64,7 +64,7 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-École Normale Supérieure de Lyon (ENS de Lyon) is a French public research and higher-education institution, ranked #187 in the QS World University Rankings 2025. This repository catalogs its public, machine-readable developer/API footprint as an [APIs.json](https://apisjson.org) profile. ENS de Lyon does not run a dedicated, branded developer portal; its principal verifiable API surface is its open-access institutional repository, **HAL-ENS-LYON**, exposed through the national HAL platform's documented APIs.
+École Normale Supérieure de Lyon (ENS de Lyon) is a French public grande école and research university, ranked #187 in the QS World University Rankings 2025. This repository catalogs its public, machine-readable developer/API footprint as an [APIs.json](https://apisjson.org) profile. ENS de Lyon runs no public developer portal, publishes no OpenAPI and issues no API keys. What it does operate is standards-based identity infrastructure — a self-hosted Shibboleth Identity Provider registered by RENATER in the Fédération Éducation-Recherche and exported to eduGAIN, an Apereo CAS single sign-on service, and a Microsoft Entra ID tenant. Its scholarly record is machine-readable only as a named collection on **HAL**, the national open archive operated by CCSD/CNRS: that data is ENS de Lyon's, the platform and the contract are HAL's, so those surfaces are recorded as tenancies. Every surface below carries an `x-operator` saying who actually runs it.
 
 - APIs.json: https://raw.githubusercontent.com/api-evangelist/ens-lyon/refs/heads/main/apis.yml
 - Run with Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=ens-lyon-api-evangelist&utm_content=repo
@@ -77,14 +77,31 @@
 
 ## Tags
 
-Education, Higher Education, University, France, Open Access, Research, Institutional Repository, OAI-PMH
+University, Higher Education, Education, France, Grande École, Identity Federation, Shibboleth, SAML, Research Repository, Open Access, OAI-PMH, Research Computing
 
 ## APIs
 
-- **HAL-ENS-LYON OAI-PMH** — OAI-PMH 2.0 harvesting endpoint scoped to the ens-lyon collection. Docs: https://api.archives-ouvertes.fr/docs/oai — Base: `https://api.archives-ouvertes.fr/oai/ens-lyon`
-- **HAL Search API (ens-lyon collection)** — REST/Solr search over ENS de Lyon publications. Docs: https://api.archives-ouvertes.fr/docs/search — Base: `https://api.archives-ouvertes.fr/search/ens-lyon/`
-- **HAL Reference (Référentiels) API** — Controlled vocabularies and authorities (authors, structures, journals). Docs: https://api.archives-ouvertes.fr/docs/ref — Base: `https://api.archives-ouvertes.fr/ref/`
-- **HAL SWORD Deposit API** — Authenticated programmatic deposit into HAL. Docs: https://api.archives-ouvertes.fr/docs/sword — Base: `https://api.archives-ouvertes.fr/sword/`
+Each entry carries an operator: `institution` (ENS de Lyon runs it), `federation` (shared metadata
+carrying ENS de Lyon's own identity), `tenant` (ENS de Lyon's data on someone else's platform),
+`registry` (a registry ENS de Lyon is registered in).
+
+- **ENS de Lyon Shibboleth Identity Provider** — `institution`. SAML 2.0 metadata, scope `ens-lyon.fr`, on ENS de Lyon's own 140.77.0.0/16 allocation. Base: `https://idp.ens-lyon.fr/idp/shibboleth`
+- **RENATER Fédération Éducation-Recherche entity** — `federation`. Signed metadata for that IdP, exported to eduGAIN, REFEDS Research & Scholarship. Base: `https://mdq.federation.renater.fr/fer/entities/https%3A%2F%2Fidp.ens-lyon.fr%2Fidp%2Fshibboleth`
+- **ENS de Lyon Microsoft Entra ID tenant** — `federation`. Tenant `c30cf67d-aee4-44f6-8f1b-12f4935b7d2c`, live OIDC discovery + SAML federation metadata. Microsoft's host, ENS de Lyon's tenant.
+- **ENS de Lyon CAS single sign-on** — `institution`. Apereo CAS 3.0 on `cas.ens-lyon.fr`. Base: `https://cas.ens-lyon.fr/cas/`
+- **HAL OAI-PMH — ens-lyon collection** — `tenant`. Docs: https://api.archives-ouvertes.fr/docs/oai — Base: `https://api.archives-ouvertes.fr/oai/ens-lyon`
+- **HAL Search API — ens-lyon collection** — `tenant`. 106,836 records on 2026-09-01. Docs: https://api.archives-ouvertes.fr/docs/search — Base: `https://api.archives-ouvertes.fr/search/ens-lyon/`
+- **ROR registry record** — `registry`. https://ror.org/04zmssz18
+- **Crossref Funder Registry entry** — `registry`. https://doi.org/10.13039/501100018692
+
+Removed in the 2026-09-01 re-profile: HAL's generic Reference (Référentiels) and SWORD deposit APIs.
+Both are HAL's own contracts on a shared national host with no ENS de Lyon scope, so crediting them
+to the institution overstated its footprint. HAL's data for ENS de Lyon is still recorded, as a tenancy.
+
+## Artifacts
+
+- Authentication & federated identity: [authentication/ens-lyon-authentication.yml](authentication/ens-lyon-authentication.yml)
+- Education-regime standard conformance: [conformance/ens-lyon-domain-standards.yml](conformance/ens-lyon-domain-standards.yml)
 
 ## Plans / Rate Limits / FinOps
 
@@ -95,20 +112,46 @@ Education, Higher Education, University, France, Open Access, Research, Institut
 ## Timestamps
 
 - Created: 2026-06-03
-- Modified: 2026-06-03
+- Modified: 2026-09-01
 
 ## Common Properties
 
 - Website: https://www.ens-lyon.fr/
-- Developer Portal (HAL APIs): https://api.archives-ouvertes.fr/docs
-- GitHub: https://github.com/ens-lyon
+- Terms / Mentions légales: https://www.ens-lyon.fr/acces/mentions-legales
+- Support: https://www.ens-lyon.fr/contact
 - LinkedIn: https://fr.linkedin.com/school/ens-lyon/
-- Repository (HAL-ENS-LYON): https://ens-lyon.hal.science
+- Identity Federation: https://services.renater.fr/federation/
+- Research Repository (HAL-ENS-LYON): https://ens-lyon.hal.science
+- Research Computing (PSMN): https://www.ens-lyon.fr/PSMN/
 - Review: [review.yml](review.yml)
 
 ## Notes
 
-The HAL APIs are operated by the national HAL / CCSD infrastructure (api.archives-ouvertes.fr), scoped to the ENS de Lyon `ens-lyon` collection — they are not branded ENS de Lyon endpoints. The OAI-PMH `Identify` and Search endpoints were verified live (HTTP 200) on 2026-06-03. The official GitHub org (github.com/ens-lyon) loads but currently publishes no public repositories. The LinkedIn school page returns HTTP 999 (LinkedIn anti-bot) but exists in-browser. No course/catalog/SIS, library Alma/Primo, or other branded institutional API was found publicly documented, and none were fabricated.
+Re-profiled 2026-09-01 under the API Evangelist university pipeline, which settles **who operates
+each surface** before saving anything.
+
+The HAL endpoints are operated by CCSD/CNRS on the shared national host `api.archives-ouvertes.fr`
+— the OAI-PMH `Identify` response names the repository as HAL, the repositoryIdentifier as
+`hal.archives-ouvertes.fr` and the admin contact as `contact@archives-ouvertes.fr`. They are scoped
+to ENS de Lyon's `ens-lyon` collection, so the relationship is real and is recorded as a tenancy;
+HAL's specification is not saved under this institution.
+
+The real institution-operated find here is federated identity: `idp.ens-lyon.fr` serves a valid SAML
+2.0 EntityDescriptor with scope `ens-lyon.fr`, and RENATER's MDQ returns the signed copy in both the
+`fer` and `edugain` namespaces. `cas.ens-lyon.fr` answers the CAS 3.0 protocol.
+
+The `github.com/ENS-Lyon` organisation pointer was **removed**: the org has zero public repositories,
+no name, no URL and no verified domain, so it cannot be attributed to the institution. The
+`api.archives-ouvertes.fr/docs` "Developer Portal" pointer was also removed — those are HAL's docs,
+not ENS de Lyon's.
+
+No course catalog, SIS, timetable, library discovery API or open-data portal was found:
+`api.ens-lyon.fr`, `data.ens-lyon.fr` and `developer.ens-lyon.fr` do not resolve. `ens-lyon.hal.science`
+and `books.openedition.org` return HTTP 200 carrying an Anubis bot-mitigation challenge rather than
+content. `www.ens-lyon.fr` returns 404 for `llms.txt`, `sitemap.xml` and `.well-known/security.txt`,
+and serves a 77KB soft-404 body, so status codes were read rather than page presence. LinkedIn
+returns 999 (anti-bot) but exists in-browser. ENS de Lyon holds no DataCite membership and no
+Crossref depositor membership. Nothing was fabricated.
 
 ## Maintainers
 
