@@ -1,4 +1,4 @@
-# École Normale Supérieure de Lyon (ens-lyon)
+# École Normale Supérieure de Lyon
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,95 +64,117 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-École Normale Supérieure de Lyon (ENS de Lyon) is a French public grande école and research university, ranked #187 in the QS World University Rankings 2025. This repository catalogs its public, machine-readable developer/API footprint as an [APIs.json](https://apisjson.org) profile. ENS de Lyon runs no public developer portal, publishes no OpenAPI and issues no API keys. What it does operate is standards-based identity infrastructure — a self-hosted Shibboleth Identity Provider registered by RENATER in the Fédération Éducation-Recherche and exported to eduGAIN, an Apereo CAS single sign-on service, and a Microsoft Entra ID tenant. Its scholarly record is machine-readable only as a named collection on **HAL**, the national open archive operated by CCSD/CNRS: that data is ENS de Lyon's, the platform and the contract are HAL's, so those surfaces are recorded as tenancies. Every surface below carries an `x-operator` saying who actually runs it.
+École Normale Supérieure de Lyon (ENS de Lyon) is a French public grande école and research university, one of the four Écoles normales supérieures, ranked #187 in the QS World University Rankings 2025. It operates no public developer portal, publishes no OpenAPI, issues no API keys and runs no documented open-API programme — api.ens-lyon.fr, data.ens-lyon.fr and developer.ens-lyon.fr do not resolve — and this profile says so rather than padding the gap. What ENS de Lyon does operate, and what is recorded here, is standards-based identity and scholarly infrastructure. It self-hosts a Shibboleth Identity Provider on its own domain (idp.ens-lyon.fr, scope ens-lyon.fr, on the school's own 140.77.0.0/16 allocation), registered by RENATER in the Fédération Éducation-Recherche, carrying the REFEDS Research & Scholarship entity category and exported to eduGAIN; it runs an Apereo CAS single sign-on service at cas.ens-lyon.fr that answers the CAS 3.0 protocol; and it holds a Microsoft Entra ID tenant with live OIDC discovery. Its research output is machine-readable only as the ens-lyon collection on HAL, the national open archive operated by CCSD/CNRS — 106,836 records, harvestable over OAI-PMH and Solr search at api.archives-ouvertes.fr. That data is ENS de Lyon's; the platform, the contract and the admin contact (contact@archives-ouvertes.fr) are HAL's, so those surfaces are recorded as tenancies and HAL's generic reference and SWORD APIs are deliberately not claimed here. The school is registered in ROR and in the Crossref Funder Registry; it holds no DataCite membership and no Crossref depositor membership of its own.
 
-- APIs.json: https://raw.githubusercontent.com/api-evangelist/ens-lyon/refs/heads/main/apis.yml
-- Run with Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=ens-lyon-api-evangelist&utm_content=repo
+**Areas:** University · Higher Education · Education · France · Grande École · Identity Federation · Shibboleth · SAML · Research Repository · Open Access · OAI-PMH · Research Computing
 
-## Type
+## École Normale Supérieure de Lyon on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for École Normale Supérieure de Lyon is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/ens-lyon/](https://apis.io/providers/ens-lyon/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (8)
 
-University, Higher Education, Education, France, Grande École, Identity Federation, Shibboleth, SAML, Research Repository, Open Access, OAI-PMH, Research Computing
+- [ENS de Lyon Shibboleth Identity Provider (SAML 2.0 metadata)](https://apis.io/apis/ens-lyon/shibboleth-idp/) — ENS de Lyon self-hosts its Shibboleth Identity Provider on its own registrable domain. The entityID is https://idp.ens-lyon.fr/idp/shibboleth, the asserted…
+- [RENATER Fédération Éducation-Recherche entity (ENS de Lyon IdP)](https://apis.io/apis/ens-lyon/renater-fer-entity/) — ENS de Lyon's Identity Provider as registered by RENATER, France's national research and education network, in the Fédération Éducation-Recherche and…
+- [ENS de Lyon Microsoft Entra ID tenant (OIDC + SAML metadata)](https://apis.io/apis/ens-lyon/entra-id-tenant/) — The Entra ID tenant behind ens-lyon.fr accounts, resolved from the domain hint: c30cf67d-aee4-44f6-8f1b-12f4935b7d2c, region scope EU. OIDC discovery and…
+- [ENS de Lyon CAS single sign-on (Apereo CAS 3.0 protocol)](https://apis.io/apis/ens-lyon/cas-sso/) — Apereo CAS service running on ENS de Lyon's own host cas.ens-lyon.fr (140.77.51.3). The CAS 3.0 validation endpoint /cas/p3/serviceValidate answers…
+- [HAL OAI-PMH — ens-lyon collection](https://apis.io/apis/ens-lyon/hal-oai-pmh/) — OAI-PMH 2.0 harvesting endpoint scoped to ENS de Lyon's named collection on HAL, the French national open archive operated by CCSD (CNRS). The Identify…
+- [HAL Search API — ens-lyon collection](https://apis.io/apis/ens-lyon/hal-search/) — HAL's Solr-backed search API scoped to the ENS de Lyon collection. A probe of /search/ens-lyon/?q=*:*&wt=json returned numFound 106,836 on 2026-09-01, which…
+- [ROR registry record (04zmssz18)](https://apis.io/apis/ens-lyon/ror-record/) — ENS de Lyon's record in the Research Organization Registry, https://ror.org/04zmssz18, typed education and funder, carrying ISNI 0000 0001 2175 9188, GRID…
+- [Crossref Funder Registry entry (501100018692)](https://apis.io/apis/ens-lyon/crossref-funder/) — ENS de Lyon is registered in the Crossref Open Funder Registry as https://doi.org/10.13039/501100018692, name "École Normale Supérieure de Lyon", location…
 
-## APIs
+### Published properties
 
-Each entry carries an operator: `institution` (ENS de Lyon runs it), `federation` (shared metadata
-carrying ENS de Lyon's own identity), `tenant` (ENS de Lyon's data on someone else's platform),
-`registry` (a registry ENS de Lyon is registered in).
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **ENS de Lyon Shibboleth Identity Provider** — `institution`. SAML 2.0 metadata, scope `ens-lyon.fr`, on ENS de Lyon's own 140.77.0.0/16 allocation. Base: `https://idp.ens-lyon.fr/idp/shibboleth`
-- **RENATER Fédération Éducation-Recherche entity** — `federation`. Signed metadata for that IdP, exported to eduGAIN, REFEDS Research & Scholarship. Base: `https://mdq.federation.renater.fr/fer/entities/https%3A%2F%2Fidp.ens-lyon.fr%2Fidp%2Fshibboleth`
-- **ENS de Lyon Microsoft Entra ID tenant** — `federation`. Tenant `c30cf67d-aee4-44f6-8f1b-12f4935b7d2c`, live OIDC discovery + SAML federation metadata. Microsoft's host, ENS de Lyon's tenant.
-- **ENS de Lyon CAS single sign-on** — `institution`. Apereo CAS 3.0 on `cas.ens-lyon.fr`. Base: `https://cas.ens-lyon.fr/cas/`
-- **HAL OAI-PMH — ens-lyon collection** — `tenant`. Docs: https://api.archives-ouvertes.fr/docs/oai — Base: `https://api.archives-ouvertes.fr/oai/ens-lyon`
-- **HAL Search API — ens-lyon collection** — `tenant`. 106,836 records on 2026-09-01. Docs: https://api.archives-ouvertes.fr/docs/search — Base: `https://api.archives-ouvertes.fr/search/ens-lyon/`
-- **ROR registry record** — `registry`. https://ror.org/04zmssz18
-- **Crossref Funder Registry entry** — `registry`. https://doi.org/10.13039/501100018692
+#### JSON-LD (1)
 
-Removed in the 2026-09-01 re-profile: HAL's generic Reference (Référentiels) and SWORD deposit APIs.
-Both are HAL's own contracts on a shared national host with no ENS de Lyon scope, so crediting them
-to the institution overstated its footprint. HAL's data for ENS de Lyon is still recorded, as a tenancy.
+Linked-data contexts for the provider's vocabulary.
 
-## Artifacts
+- [Ens Lyon Context](https://apis.io/jsonld/ens-lyon/ens-lyon-context/)
 
-- Authentication & federated identity: [authentication/ens-lyon-authentication.yml](authentication/ens-lyon-authentication.yml)
-- Education-regime standard conformance: [conformance/ens-lyon-domain-standards.yml](conformance/ens-lyon-domain-standards.yml)
+#### Security (2)
 
-## Plans / Rate Limits / FinOps
+Authentication, trust centre, and vulnerability disclosure.
 
-- Plans & Pricing: [plans/ens-lyon-plans-pricing.yml](plans/ens-lyon-plans-pricing.yml)
-- Rate Limits: [rate-limits/ens-lyon-rate-limits.yml](rate-limits/ens-lyon-rate-limits.yml)
-- FinOps: [finops/ens-lyon-finops.yml](finops/ens-lyon-finops.yml)
+- [Ens Lyon Authentication](https://apis.io/security/ens-lyon/ens-lyon-authentication/)
+- [Ens Lyon Domain Security](https://apis.io/security/ens-lyon/ens-lyon-domain-security/)
 
-## Timestamps
+#### Plans and pricing (1)
 
-- Created: 2026-06-03
-- Modified: 2026-09-01
+Published plans, tiers and prices.
 
-## Common Properties
+- [Ens Lyon Plans Pricing](https://apis.io/plans/ens-lyon/ens-lyon-plans-pricing/)
 
-- Website: https://www.ens-lyon.fr/
-- Terms / Mentions légales: https://www.ens-lyon.fr/acces/mentions-legales
-- Support: https://www.ens-lyon.fr/contact
-- LinkedIn: https://fr.linkedin.com/school/ens-lyon/
-- Identity Federation: https://services.renater.fr/federation/
-- Research Repository (HAL-ENS-LYON): https://ens-lyon.hal.science
-- Research Computing (PSMN): https://www.ens-lyon.fr/PSMN/
-- Review: [review.yml](review.yml)
+#### Rate limits (1)
 
-## Notes
+Published request limits.
 
-Re-profiled 2026-09-01 under the API Evangelist university pipeline, which settles **who operates
-each surface** before saving anything.
+- [Ens Lyon Rate Limits](https://apis.io/rate-limits/ens-lyon/ens-lyon-rate-limits/)
 
-The HAL endpoints are operated by CCSD/CNRS on the shared national host `api.archives-ouvertes.fr`
-— the OAI-PMH `Identify` response names the repository as HAL, the repositoryIdentifier as
-`hal.archives-ouvertes.fr` and the admin contact as `contact@archives-ouvertes.fr`. They are scoped
-to ENS de Lyon's `ens-lyon` collection, so the relationship is real and is recorded as a tenancy;
-HAL's specification is not saved under this institution.
+#### FinOps (1)
 
-The real institution-operated find here is federated identity: `idp.ens-lyon.fr` serves a valid SAML
-2.0 EntityDescriptor with scope `ens-lyon.fr`, and RENATER's MDQ returns the signed copy in both the
-`fer` and `edugain` namespaces. `cas.ens-lyon.fr` answers the CAS 3.0 protocol.
+What the API costs to run, by operation.
 
-The `github.com/ENS-Lyon` organisation pointer was **removed**: the org has zero public repositories,
-no name, no URL and no verified domain, so it cannot be attributed to the institution. The
-`api.archives-ouvertes.fr/docs` "Developer Portal" pointer was also removed — those are HAL's docs,
-not ENS de Lyon's.
+- [Ens Lyon Finops](https://apis.io/finops/ens-lyon/ens-lyon-finops/)
 
-No course catalog, SIS, timetable, library discovery API or open-data portal was found:
-`api.ens-lyon.fr`, `data.ens-lyon.fr` and `developer.ens-lyon.fr` do not resolve. `ens-lyon.hal.science`
-and `books.openedition.org` return HTTP 200 carrying an Anubis bot-mitigation challenge rather than
-content. `www.ens-lyon.fr` returns 404 for `llms.txt`, `sitemap.xml` and `.well-known/security.txt`,
-and serves a 77KB soft-404 body, so status codes were read rather than page presence. LinkedIn
-returns 999 (anti-bot) but exists in-browser. ENS de Lyon holds no DataCite membership and no
-Crossref depositor membership. Nothing was fabricated.
+## Where to find this API
 
-## Maintainers
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- Kin Lane — kin@apievangelist.com
+- [Website](https://www.ens-lyon.fr/)
+- [Support](https://www.ens-lyon.fr/contact)
+- [Terms of service](https://www.ens-lyon.fr/acces/mentions-legales)
+
+## API Evangelist rating
+
+**Kin Score 20.1** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 14.3 |
+| Contract governance | 0.0 |
+| Operational transparency | 5.3 |
+| Developer ergonomics | 26.2 |
+| Access clarity | 15.8 |
+
+**Agent readiness 3.1** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 20.6** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/ens-lyon/](https://apis.io/providers/ens-lyon/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for École Normale Supérieure de Lyon: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/ens-lyon/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
